@@ -3,32 +3,49 @@ local keyboard = require("awful.keyboard")
 local key = require("awful.key")
 local spawn = require("awful.spawn")
 
+local menu = require("config.menu")
+local wmmenu = menu.wmmenu
+local clientmenu = menu.clientmenu
+
 local terminal = "kitty"
 local launcher = "rofi -show drun"
 local super = "Mod4"
 
+-- apps spawn
 keyboard.append_global_keybindings({
 	key({ super }, "Return", function()
 		spawn(terminal)
 	end, { description = "spawn a terminal", group = "basic" }),
 
-	key({ super }, "p", function()
+	key({ super }, "h", function()
 		spawn(launcher)
 	end, { description = "spawn a launcher", group = "basic" }),
 })
 
+-- menus spawn
+keyboard.append_global_keybindings({
+	key({ super }, "Escape", function()
+		wmmenu:toggle({ coords = { x = 400, y = 320 } })
+	end),
+	{ description = "toggle wmmenu", group = "menus" },
+})
+keyboard.append_client_keybindings({
+	key({ super }, ",", function()
+		clientmenu:toggle({ coords = { x = 400, y = 320 } })
+	end),
+	{ description = "toggle clientmenu", group = "menus" },
+})
+
 keyboard.append_global_keybindings({
 	key({ super }, "Tab", function()
-		awful.client.focus.byxid(1)
+		awful.client.focus.byidx(1)
 	end, { description = "focus the next client", group = "basic" }),
 })
 
-awful.keyboard.append_global_keybindings({
+keyboard.append_global_keybindings({
 	awful.key({
 		modifiers = { super },
 		keygroup = "numrow",
-		description = "only view tag",
-		group = "tag",
 		on_press = function(index)
 			local screen = awful.screen.focused()
 			local tag = screen.tags[index]
@@ -40,13 +57,12 @@ awful.keyboard.append_global_keybindings({
 	awful.key({
 		modifiers = { super, "Shift" },
 		keygroup = "numrow",
-		description = "move focused client to tag",
-		group = "tag",
 		on_press = function(index)
-			if client.focus then
-				local tag = client.focus.screen.tags[index]
+			local c = client.focus
+			if c then
+				local tag = c.screen.tags[index]
 				if tag then
-					client.focus:move_to_tag(tag)
+					c:move_to_tag(tag)
 				end
 			end
 		end,
