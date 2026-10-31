@@ -16,7 +16,12 @@ menus.wmmenu = awful.menu({
 				hotkeys_popup.show_help(nil, awful.screen.focused())
 			end,
 		},
-		{ "edit config", spawn("kitty yazi /home/sandrone/Projects/somewm-dotfiles") },
+		{
+			"edit config",
+			function()
+				spawn("kitty -d /home/sandrone/Projects/somewm-dotfiles/ yazi")
+			end,
+		},
 		{ "restart", awesome.restart },
 		{
 			"quit",

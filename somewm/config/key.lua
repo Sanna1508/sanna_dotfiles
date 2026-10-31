@@ -2,6 +2,7 @@ local awful = require("awful")
 local keyboard = require("awful.keyboard")
 local key = require("awful.key")
 local spawn = require("awful.spawn")
+local screenshot = require("awful.screenshot")
 
 local menu = require("config.menu")
 local wmmenu = menu.wmmenu
@@ -82,3 +83,97 @@ client.connect_signal("request::default_mousebindings", function()
 		end),
 	})
 end)
+
+keyboard.append_global_keybindings({
+	key({}, "Print", function()
+		local ss = screenshot({
+			interactive = true,
+			directory = "/tmp",
+		})
+		ss:connect_signal("file::saved", function(_, file_path)
+			spawn.with_shell("wl-copy < " .. file_path .. " && rm " .. file_path)
+		end)
+
+		ss:refresh()
+	end), -- Applications --
+})
+
+-- audio (requires wpctl from wireplumber)
+keyboard.append_global_keybindings({
+	key({
+		modifiers = {},
+		key = "XF86AudioRaiseVolume",
+		on_press = function()
+			spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")
+		end,
+		description = "raise volume",
+		group = "audio",
+	}),
+	key({
+		modifiers = {},
+		key = "XF86AudioLowerVolume",
+		on_press = function()
+			spawn("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")
+		end,
+		description = "lower volume",
+		group = "audio",
+	}),
+	key({
+		modifiers = {},
+		key = "XF86AudioMute",
+		on_press = function()
+			spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
+		end,
+		description = "mute output",
+		group = "audio",
+	}),
+	key({
+		modifiers = {},
+		key = "XF86AudioMicMute",
+		on_press = function()
+			spawn("wpctl set-mute @DEFAULT_SOURCE@ toggle")
+		end,
+		description = "mute microphone",
+		group = "audio",
+	}),
+})
+
+-- brightness (requires brightnessctl)
+keyboard.append_global_keybindings({
+	key({
+		modifiers = {},
+		key = "XF86MonBrightnessUp",
+		on_press = function()
+			spawn("brightnessctl set 5%+")
+		end,
+		description = "raise brightness",
+		group = "brightness",
+	}),
+	key({
+		modifiers = { super },
+		key = "XF86MonBrightnessUp",
+		on_press = function()
+			spawn("brightnessctl set 40%")
+		end,
+		description = "set brightness 40%",
+		group = "brightness",
+	}),
+	key({
+		modifiers = {},
+		key = "XF86MonBrightnessDown",
+		on_press = function()
+			spawn("brightnessctl set 5%-")
+		end,
+		description = "lower brightness",
+		group = "brightness",
+	}),
+	key({
+		modifiers = { super },
+		key = "XF86MonBrightnessDown",
+		on_press = function()
+			spawn("brightnessctl set 0%")
+		end,
+		description = "turnoff brightness",
+		group = "brightness",
+	}),
+})

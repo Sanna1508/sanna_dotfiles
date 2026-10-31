@@ -15,3 +15,5 @@ do
 end
 
 beautiful.init(gears.filesystem.get_themes_dir() .. theme_name .. "/theme.lua")
+
+beautiful.screenshot_frame_color = beautiful.fg_focus
