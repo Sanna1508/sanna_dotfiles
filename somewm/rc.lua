@@ -5,6 +5,7 @@ require("config.wallpaper")
 
 require("config.start")
 require("config.rule")
+require("config.noti")
 
 require("awful.autofocus")
 

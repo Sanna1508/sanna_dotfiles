@@ -9,7 +9,7 @@ local wmmenu = menu.wmmenu
 local clientmenu = menu.clientmenu
 
 local terminal = "kitty"
-local launcher = "rofi -show drun"
+local launcher = "pkill -9 fuzzel || fuzzel"
 local super = "Mod4"
 
 -- apps spawn
@@ -19,7 +19,7 @@ keyboard.append_global_keybindings({
 	end, { description = "spawn a terminal", group = "basic" }),
 
 	key({ super }, "h", function()
-		spawn(launcher)
+		spawn.with_shell(launcher)
 	end, { description = "spawn a launcher", group = "basic" }),
 })
 
