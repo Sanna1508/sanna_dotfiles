@@ -30,7 +30,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			c:tags(tags)
 		end
 	else
-		awful.tag({ "alpha", "beta", "omega", "theta", "zeta" }, s, awful.layout.layouts[1])
+		awful.tag({ "alpha", "beta", "gamma", "delta", "omega" }, s, awful.layout.layouts[1])
 	end
 end)
 
