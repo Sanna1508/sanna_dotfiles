@@ -1,5 +1,13 @@
 local awful = require("awful")
 
+tag.connect_signal("request::default_layouts", function()
+	awful.layout.append_default_layouts({
+		awful.layout.suit.floating,
+		awful.layout.suit.max.fullscreen,
+		awful.layout.suit.magnifier,
+	})
+end)
+
 screen.connect_signal("request::desktop_decoration", function(s)
 	-- Restore saved tags if this output was previously removed
 	local output_name = s.output and s.output.name
@@ -32,12 +40,4 @@ screen.connect_signal("request::desktop_decoration", function(s)
 	else
 		awful.tag({ "alpha", "beta", "gamma", "delta", "omega" }, s, awful.layout.layouts[1])
 	end
-end)
-
-tag.connect_signal("request::default_layouts", function()
-	awful.layout.append_default_layouts({
-		awful.layout.suit.tile,
-		awful.layout.suit.floating,
-		awful.layout.suit.magnifier,
-	})
 end)

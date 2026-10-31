@@ -41,6 +41,10 @@ keyboard.append_global_keybindings({
 	key({ super }, "Tab", function()
 		awful.client.focus.byidx(1)
 	end, { description = "focus the next client", group = "basic" }),
+	key({ super }, "Space", function()
+		awful.layout.inc(1)
+		spawn("notify-send '" .. awful.layout.getname() .. "'")
+	end, { description = "toggle next layout", group = "basic" }),
 })
 
 keyboard.append_global_keybindings({

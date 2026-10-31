@@ -34,11 +34,11 @@ menus.wmmenu = awful.menu({
 
 local clientstate = {
 	{
-		"fullscreen",
+		"maximize",
 		function()
 			local c = client.focus
-			c.fullscreen = not c.fullscreen
-			c.focus:raise()
+			c.maximized = not c.maximized
+			c:raise()
 		end,
 	},
 	{
@@ -50,11 +50,11 @@ local clientstate = {
 		end,
 	},
 	{
-		"maximize",
+		"fullscreen",
 		function()
 			local c = client.focus
-			c.maximized = not c.maximized
-			c:raise()
+			c.fullscreen = not c.fullscreen
+			c.focus:raise()
 		end,
 	},
 }
