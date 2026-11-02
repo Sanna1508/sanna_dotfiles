@@ -19,5 +19,5 @@ beautiful.init(gears.filesystem.get_themes_dir() .. theme_name .. "/theme.lua")
 beautiful.screenshot_frame_color = beautiful.fg_focus
 
 beautiful.notification_width = 300
--- beautiful.notification_max_width = 100
+beautiful.notification_max_width = 100
 -- beautiful.notification_max_height = 100

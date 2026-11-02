@@ -39,10 +39,10 @@ client.connect_signal("request::default_keybindings", function()
 			key = "f",
 			on_press = function(c)
 				c.maximized = not c.maximized
-				naughty.notification({
-					title = c.name,
-					message = "maximized is " .. (c.maximized and "true" or "false"),
-				})
+				-- naughty.notification({
+				-- 	title = c.name,
+				-- 	message = "maximized is " .. (c.maximized and "true" or "false"),
+				-- })
 				c:raise()
 			end,
 			description = "toggle fullscreen",
