@@ -3,6 +3,7 @@ local keyboard = require("awful.keyboard")
 local key = require("awful.key")
 local spawn = require("awful.spawn")
 local screenshot = require("awful.screenshot")
+local naughty = require("naughty")
 
 local menu = require("config.menu")
 local wmmenu = menu.wmmenu
@@ -30,12 +31,31 @@ keyboard.append_global_keybindings({
 	end),
 	{ description = "toggle wmmenu", group = "menus" },
 })
-keyboard.append_client_keybindings({
-	key({ super }, ",", function()
-		clientmenu:toggle({ coords = { x = 400, y = 320 } })
-	end),
-	{ description = "toggle clientmenu", group = "menus" },
-})
+
+client.connect_signal("request::default_keybindings", function()
+	keyboard.append_client_keybindings({
+		key({
+			modifiers = { super },
+			key = "f",
+			on_press = function(c)
+				c.maximized = not c.maximized
+				naughty.notification({
+					title = c.name,
+					message = "maximized is " .. (c.maximized and "true" or "false"),
+				})
+				c:raise()
+			end,
+			description = "toggle fullscreen",
+			group = "client",
+		}),
+		keyboard.append_client_keybindings({
+			key({ super }, ",", function()
+				clientmenu:toggle({ coords = { x = 400, y = 320 } })
+			end),
+			{ description = "toggle clientmenu", group = "menus" },
+		}),
+	})
+end)
 
 keyboard.append_global_keybindings({
 	key({ super }, "Tab", function()
@@ -100,6 +120,9 @@ keyboard.append_global_keybindings({
 
 		ss:refresh()
 	end), -- Applications --
+	key({ super }, "Print", function()
+		spawn.with_shell("ffmpeg_recorder.sh")
+	end),
 })
 
 -- audio (requires wpctl from wireplumber)
