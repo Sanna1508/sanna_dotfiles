@@ -75,12 +75,6 @@ menus.clientmenu = awful.menu({
 			end,
 		},
 		{
-			"getinfo",
-			function()
-				naughty.notify({ text = "Class: " .. (client.focus.class or "None") })
-			end,
-		},
-		{
 			"quit",
 			function()
 				local c = client.focus
