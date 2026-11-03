@@ -3,6 +3,14 @@ local wibox = require("wibox")
 local gears = require("gears")
 local beautiful = require("beautiful")
 
+local timer = gears.timer({
+	timeout = 0.3,
+	-- autostart = true,
+	callback = function()
+		awful.spawn("notify-send 'play timer'")
+	end,
+})
+
 -- get basic slider
 local birghtness_slider = wibox.widget({
 	bar_shape = gears.shape.rounded_rect,
@@ -18,13 +26,7 @@ local birghtness_slider = wibox.widget({
 	widget = wibox.widget.slider,
 })
 
-local function update_slider(value)
-	if value <= 100 then
-		birghtness_slider.maximum = 100
-		birghtness_slider.handle_color = "#834992"
-	end
-end
--- update slider via wpctl
+-- update slider via brightnessctl
 local function update_brightness()
 	awful.spawn.easy_async_with_shell("brightnessctl get", function(stdout)
 		local value = tonumber(stdout:match("(%d+)")) / 75
@@ -32,7 +34,6 @@ local function update_brightness()
 			value = 0
 		end
 		birghtness_slider.value = value
-		update_slider(value)
 	end)
 end
 
@@ -41,9 +42,13 @@ awful.spawn(update_brightness())
 
 -- sync brightness from slider
 birghtness_slider:connect_signal("property::value", function(slider)
-	local current_val = slider.value
-	update_slider(slider.value)
-	awful.spawn("brightnessctl set " .. current_val .. "%", false)
+	local new_val = slider.value
+	awful.spawn.easy_async_with_shell("brightnessctl get", function(stdout)
+		local value = tonumber(stdout:match("(%d+)")) / 75
+		if new_val ~= value then
+			awful.spawn("brightnessctl set " .. new_val .. "%", false)
+		end
+	end)
 end)
 
 -- sync slider.value from signal

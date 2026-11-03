@@ -58,6 +58,7 @@ awful.screen.connect_for_each_screen(function(s)
 	})
 
 	s.box_layout:add_widget_at(slider, 1, 1, 1, 2)
+	s.box_layout:add_widget_at(brightness, 2, 1, 1, 2)
 
 	s.box:setup({
 		layout = wibox.layout.align.horizontal,
