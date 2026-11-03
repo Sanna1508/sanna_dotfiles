@@ -7,6 +7,7 @@ require("config.start")
 require("config.rule")
 require("config.noti")
 require("config.signal")
+require("config.wibox")
 
 require("awful.autofocus")
 

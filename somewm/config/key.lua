@@ -30,6 +30,10 @@ keyboard.append_global_keybindings({
 		wmmenu:toggle({ coords = { x = 400, y = 320 } })
 	end),
 	{ description = "toggle wmmenu", group = "menus" },
+	key({ super }, "f", function()
+		awful.screen.focused().box.visible = not awful.screen.focused().box.visible
+	end),
+	{ description = "toggle box", group = "wibox" },
 })
 
 client.connect_signal("request::default_keybindings", function()
