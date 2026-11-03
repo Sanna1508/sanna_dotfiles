@@ -31,7 +31,9 @@ keyboard.append_global_keybindings({
 	end),
 	{ description = "toggle wmmenu", group = "menus" },
 	key({ super }, "f", function()
-		awful.screen.focused().box.visible = not awful.screen.focused().box.visible
+		if awful.screen.focused().box then
+			awful.screen.focused().box.visible = not awful.screen.focused().box.visible
+		end
 	end),
 	{ description = "toggle box", group = "wibox" },
 })
