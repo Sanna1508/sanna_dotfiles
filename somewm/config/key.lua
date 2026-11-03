@@ -34,26 +34,10 @@ keyboard.append_global_keybindings({
 
 client.connect_signal("request::default_keybindings", function()
 	keyboard.append_client_keybindings({
-		key({
-			modifiers = { super },
-			key = "f",
-			on_press = function(c)
-				c.maximized = not c.maximized
-				-- naughty.notification({
-				-- 	title = c.name,
-				-- 	message = "maximized is " .. (c.maximized and "true" or "false"),
-				-- })
-				c:raise()
-			end,
-			description = "toggle fullscreen",
-			group = "client",
-		}),
-		keyboard.append_client_keybindings({
-			key({ super }, ",", function()
-				clientmenu:toggle({ coords = { x = 400, y = 320 } })
-			end),
-			{ description = "toggle clientmenu", group = "menus" },
-		}),
+		key({ super }, ",", function()
+			clientmenu:toggle({ coords = { x = 400, y = 320 } })
+		end),
+		{ description = "toggle clientmenu", group = "menus" },
 	})
 end)
 
@@ -152,15 +136,6 @@ keyboard.append_global_keybindings({
 			spawn("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
 		end,
 		description = "mute output",
-		group = "audio",
-	}),
-	key({
-		modifiers = {},
-		key = "XF86AudioMicMute",
-		on_press = function()
-			spawn("wpctl set-mute @DEFAULT_SOURCE@ toggle")
-		end,
-		description = "mute microphone",
 		group = "audio",
 	}),
 })

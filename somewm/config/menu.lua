@@ -38,10 +38,10 @@ local clientstate = {
 		function()
 			local c = client.focus
 			c.maximized = not c.maximized
-			naughty.notification({
-				title = c.name,
-				message = "maximized is " .. (c.maximized and "true" or "false"),
-			})
+			-- naughty.notification({
+			-- 	title = c.name,
+			-- 	message = "maximized is " .. (c.maximized and "true" or "false"),
+			-- })
 			c:raise()
 		end,
 	},
