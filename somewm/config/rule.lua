@@ -1,6 +1,10 @@
 local ruled = require("ruled")
 local awful = require("awful")
 
+awesome.set_idle_timeout("display-off", 1800, function()
+	awesome.dpms_off()
+end)
+
 ruled.client.connect_signal("request::rules", function()
 	-- All clients match this rule.
 	ruled.client.append_rule({
