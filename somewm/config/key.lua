@@ -47,6 +47,7 @@ client.connect_signal("request::default_keybindings", function()
 	})
 end)
 
+-- client behaviors
 keyboard.append_global_keybindings({
 	key({ super }, "Tab", function()
 		awful.client.focus.byidx(1)
@@ -57,6 +58,7 @@ keyboard.append_global_keybindings({
 	end, { description = "toggle next layout", group = "basic" }),
 })
 
+-- tag behaviors
 keyboard.append_global_keybindings({
 	awful.key({
 		modifiers = { super },
@@ -84,6 +86,7 @@ keyboard.append_global_keybindings({
 	}),
 })
 
+-- mouse
 client.connect_signal("request::default_mousebindings", function()
 	awful.mouse.append_client_mousebindings({
 		awful.button({}, 1, function(c)
@@ -99,6 +102,7 @@ client.connect_signal("request::default_mousebindings", function()
 end)
 
 keyboard.append_global_keybindings({
+	-- Screenshot --
 	key({}, "Print", function()
 		local ss = screenshot({
 			interactive = true,
@@ -106,10 +110,15 @@ keyboard.append_global_keybindings({
 		})
 		ss:connect_signal("file::saved", function(_, file_path)
 			spawn.with_shell("wl-copy < " .. file_path .. " && rm " .. file_path)
+			naughty.notification({
+				title = "Screenshot",
+				message = "saved screenshot",
+			})
 		end)
 
 		ss:refresh()
-	end), -- Applications --
+	end),
+	-- Recording --
 	key({ super }, "Print", function()
 		spawn.with_shell("ffmpeg_recorder.sh")
 	end),

@@ -4,6 +4,7 @@ local awful = require("awful")
 local gears = require("gears")
 
 -- local brightness = require("config.widgets.brightness")
+local clock = require("config.widgets.clock")
 
 local function init_box(s, boxwidth_percent, x, boxheight_percent, y)
 	boxwidth_percent = (boxwidth_percent > 0 and boxwidth_percent <= 1 and boxwidth_percent) or 0.1
@@ -44,6 +45,7 @@ awful.screen.connect_for_each_screen(function(s)
 	})
 
 	-- s.box_layout:add_widget_at(brightness, 2, 1, 1, 2)
+	s.box_layout:add_widget_at(clock, 1, 1, 1, 1)
 
 	s.box:setup({
 		layout = wibox.layout.align.horizontal,
