@@ -1,6 +1,7 @@
 local ruled = require("ruled")
 local awful = require("awful")
 local naughty = require("naughty")
+local timer = require("gears.timer")
 
 ruled.notification.connect_signal("request::rules", function()
 	ruled.notification.append_rule({
@@ -25,3 +26,22 @@ end)
 naughty.connect_signal("request::display", function(n)
 	naughty.layout.box({ notification = n })
 end)
+
+-- notification
+-- battery notification
+timer({
+	timeout = 60,
+	call_now = true,
+	autostart = true,
+	callback = function()
+		awful.spawn.easy_async({ "cat", "/sys/class/power_supply/BAT0/capacity" }, function(out)
+			local battery = tonumber(out:match("(%d+)"))
+			if battery <= 10 then
+				naughty.notification({
+					title = "Battery",
+					message = "battery is " .. out,
+				})
+			end
+		end)
+	end,
+})
