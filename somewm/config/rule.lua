@@ -17,4 +17,14 @@ ruled.client.connect_signal("request::rules", function()
 			placement = awful.placement.no_overlap + awful.placement.no_offscreen,
 		},
 	})
+	ruled.client.append_rule({
+		id = "kitty",
+		rule = { class = "^kitty$" },
+		properties = {
+			animation = {
+				appear = "scale",
+				disappear = "fade",
+			},
+		},
+	})
 end)
