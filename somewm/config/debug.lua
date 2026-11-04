@@ -1,4 +1,5 @@
 local naughty = require("naughty")
+local gears = require("gears")
 
 naughty.connect_signal("request::display_error", function(message, startup)
 	naughty.notification({
