@@ -36,19 +36,5 @@ end
 
 awful.screen.connect_for_each_screen(function(s)
 	s.box = init_box(s, 0.18, 0.81, 0.9, 0.05)
-	s.box_layout = wibox.layout({
-		min_col_size = 175,
-		expand = true,
-		homogeneous = true,
-		orientation = "horizontal",
-		layout = wibox.layout.grid,
-	})
-
-	-- s.box_layout:add_widget_at(brightness, 2, 1, 1, 2)
-	s.box_layout:add_widget_at(clock, 1, 1, 1, 1)
-
-	s.box:setup({
-		layout = wibox.layout.align.horizontal,
-		s.box_layout,
-	})
+	s.box.widget = clock
 end)
