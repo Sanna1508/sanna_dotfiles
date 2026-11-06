@@ -21,7 +21,9 @@ local timer = gears.timer({
 -- get basic slider
 local volume_slider = wibox.widget({
 	bar_shape = gears.shape.rounded_rect,
-	bar_height = 3,
+	bar_border_color = beautiful.bg_normal,
+	-- bar_border_width = 1,
+	bar_height = 5,
 	bar_color = beautiful.border_color,
 	handle_color = beautiful.fg_normal,
 	handle_shape = gears.shape.circle,
