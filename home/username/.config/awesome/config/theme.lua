@@ -1,6 +1,6 @@
 local beautiful = require("beautiful")
 
-beautiful.init((os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME") .. "/.config") .. "/awesome/config/theme_catpuccin.lua")
+beautiful.init((os.getenv("HOME") .. "/.config") .. "/awesome/config/theme_catpuccin.lua")
 
 beautiful.screenshot_frame_color = beautiful.fg_focus
 
