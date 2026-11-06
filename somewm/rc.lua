@@ -1,5 +1,5 @@
 require("config.debug")
-require("config.env")
+-- require("config.env")
 require("config.theme")
 require("config.wallpaper")
 
