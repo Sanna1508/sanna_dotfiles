@@ -4,9 +4,10 @@ beautiful.init("/home/sandrone/Projects/somewm-dotfiles/somewm/config/theme_catp
 
 beautiful.screenshot_frame_color = beautiful.fg_focus
 
-beautiful.notification_width = 300
-beautiful.notification_max_width = 100
--- beautiful.notification_max_height = 100
+beautiful.notification_width = 200
+beautiful.notification_max_width = 400
+beautiful.notification_max_height = 400
+beautiful.notification_opacity = 0.9
 
 -- animation
 -- beautiful.animation_appear_duration = 0.06
