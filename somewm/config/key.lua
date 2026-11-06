@@ -13,10 +13,21 @@ local terminal = "kitty"
 local launcher = "pkill -9 rofi || rofi -show drun"
 local super = "Mod4"
 
+local command = "pactl get-sink-volume @DEFAULT_SINK@ && pactl get-sink-mute @DEFAULT_SINK@"
+local function update_volume()
+	awful.spawn.easy_async_with_shell(command, function(stdout)
+		local vol = tonumber(stdout:match("%/%s*(%d*)%%"))
+		local muted = stdout:match("Mute: yes") and true or false
+		naughty.notification({
+			message = stdout:match("Mute: yes") and "true" or "false",
+		})
+	end)
+end
 -- apps spawn
 keyboard.append_global_keybindings({
 	key({ super }, "Return", function()
 		spawn(terminal)
+		update_volume()
 	end, { description = "spawn a terminal", group = "basic" }),
 
 	key({ super }, "h", function()

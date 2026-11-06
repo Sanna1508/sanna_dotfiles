@@ -1,4 +1,5 @@
 local awful = require("awful")
+local spawn = require("awful.spawn")
 local wibox = require("wibox")
 local gears = require("gears")
 local beautiful = require("beautiful")
@@ -6,8 +7,6 @@ local beautiful = require("beautiful")
 local container = require("config.widgets.container_a")
 
 local istimerended = false
-
-local command = "get-sink-volume @DEFAULT_SINK@ && pactl get-sink-mute @DEFAULT_SINK@"
 
 -- delayed timer for not making lag
 local timer = gears.timer({
@@ -33,13 +32,34 @@ local volume_slider = wibox.widget({
 	widget = wibox.widget.slider,
 })
 
-local function update_volume()
-	awful.spawn.easy_async_with_shell(command, function(stdout)
-		local vol = tonumber(stdout:match("%/%s*(%d*)%"))
-		local muted = stdout:match("Mute: yes") and true or false
-		awful.spawn("notify-send '" .. stdout:match("%/%s*(%d*)%") .. "'")
-		awful.spawn("notify-send '" .. stdout:match("Mute: yes") .. "'")
+local function get_vol()
+	awful.spawn.easy_async_with_shell("pactl get-sink-volume @DEFAULT_SINK@", function(stdout)
+		return tonumber(stdout:match("%/%s*(%d*)%%"))
 	end)
 end
 
-update_volume()
+local function get_muted_state()
+	awful.spawn.easy_async_with_shell("pactl get-sink-mute @DEFAULT_SINK@", function(stdout)
+		return stdout:match("Mute: yes") and true or false
+	end)
+end
+
+local function update_vol(new_vol)
+	spawn("pactl set-sink-volume @DEFAULT_SINK@ " .. tostring(new_vol) .. "%")
+end
+
+local function toggle_mute_state()
+	spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")
+end
+
+volume_slider:connect_signal("property::value", function(slider)
+	if istimerended then
+		local new_vol = slider.value
+		update_vol(new_vol)
+		istimerended = false
+	else
+		timer:start()
+	end
+end)
+
+return container(volume_slider, 6, "center", "center")
