@@ -50,6 +50,10 @@ local function update_vol(new_vol)
 	spawn("pactl set-sink-volume @DEFAULT_SINK@ " .. tostring(new_vol) .. "%")
 end
 
+local function update_slider(new_val)
+	volume_slider.value = new_val
+end
+
 local function toggle_mute_state()
 	spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")
 end
@@ -63,5 +67,7 @@ volume_slider:connect_signal("property::value", function(slider)
 		timer:start()
 	end
 end)
+
+update_slider(get_vol() or 75)
 
 return container(volume_slider, 6, "center", "center")
