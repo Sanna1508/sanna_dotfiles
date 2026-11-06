@@ -19,7 +19,7 @@ menus.wmmenu = awful.menu({
 		{
 			"edit config",
 			function()
-				spawn("kitty -d /home/sandrone/Projects/somewm-dotfiles/ yazi")
+				spawn("kitty -d" .. (os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME") .. "/.config") .. "/awesome/" .. " yazi")
 			end,
 		},
 		{ "restart", awesome.restart },

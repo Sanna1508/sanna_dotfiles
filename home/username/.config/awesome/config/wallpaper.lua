@@ -4,7 +4,7 @@ local wibox = require("wibox")
 local gears = require("gears")
 
 screen.connect_signal("request::wallpaper", function(s)
-	beautiful.get().wallpaper = "/home/sandrone/.config/somewm/wallpaper.png"
+	beautiful.get().wallpaper = (os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME") .. "/.config") .. "/awesome/wallpaper.png"
 
 	if beautiful.wallpaper then
 		wallpaper({
