@@ -10,7 +10,7 @@ local wmmenu = menu.wmmenu
 local clientmenu = menu.clientmenu
 
 local terminal = "kitty"
-local launcher = "pkill -9 fuzzel || fuzzel"
+local launcher = "pkill -9 rofi || rofi -show drun"
 local super = "Mod4"
 
 -- apps spawn
@@ -103,21 +103,24 @@ end)
 
 keyboard.append_global_keybindings({
 	-- Screenshot --
-	key({}, "Print", function()
-		local ss = screenshot({
-			interactive = true,
-			directory = "/tmp",
-		})
-		ss:connect_signal("file::saved", function(_, file_path)
-			spawn.with_shell("wl-copy < " .. file_path .. " && rm " .. file_path)
-			naughty.notification({
-				title = "Screenshot",
-				message = "saved screenshot",
-			})
-		end)
-
-		ss:refresh()
-	end),
+	-- key({}, "Print", function()
+	-- 	local ss = screenshot({
+	-- 		interactive = true,
+	-- 		directory = "/tmp",
+	-- 	})
+	-- 	ss:connect_signal("file::saved", function(_, file_path)
+	-- 		spawn.with_shell("wl-copy < " .. file_path .. " && rm " .. file_path)
+	-- 		naughty.notification({
+	-- 			title = "Screenshot",
+	-- 			message = "saved screenshot",
+	-- 		})
+	-- 	end)
+	--
+	-- 	ss:refresh()
+	-- end),
+	awful.key({}, "Print", function()
+		awful.spawn.with_shell("maim -s | xclip -selection clipboard -t image/png")
+	end, { description = "printscreen", group = "screenshot" }),
 	-- Recording --
 	key({ super }, "Print", function()
 		spawn.with_shell("ffmpeg_recorder.sh")
@@ -161,7 +164,7 @@ keyboard.append_global_keybindings({
 		modifiers = {},
 		key = "XF86MonBrightnessUp",
 		on_press = function()
-			spawn("brightnessctl set 5%+")
+			spawn("brightnessctl set 10%+")
 		end,
 		description = "raise brightness",
 		group = "brightness",
@@ -179,7 +182,7 @@ keyboard.append_global_keybindings({
 		modifiers = {},
 		key = "XF86MonBrightnessDown",
 		on_press = function()
-			spawn("brightnessctl set 5%-")
+			spawn("brightnessctl set 10%-")
 		end,
 		description = "lower brightness",
 		group = "brightness",
