@@ -36,7 +36,7 @@ local volume_slider = wibox.widget({
 
 local function get_vol()
 	awful.spawn.easy_async_with_shell("pactl get-sink-volume @DEFAULT_SINK@", function(stdout)
-		return tonumber(stdout:match("%/%s*(%d*)%%"))
+		return tonumber(stdout:match("(%d+)%%"))
 	end)
 end
 
