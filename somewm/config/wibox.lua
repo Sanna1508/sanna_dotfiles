@@ -3,7 +3,7 @@ local beautiful = require("beautiful")
 local awful = require("awful")
 local gears = require("gears")
 
--- local brightness = require("config.widgets.brightness")
+local brightness = require("config.widgets.brightness")
 local clock = require("config.widgets.clock")
 
 local function init_box(s, boxwidth_percent, x, boxheight_percent, y)
@@ -34,7 +34,17 @@ local function init_box(s, boxwidth_percent, x, boxheight_percent, y)
 	return mypanel
 end
 
+local layout = wibox.widget({
+	{
+		widget = clock,
+	},
+	{
+		widget = brightness,
+	},
+	layout = wibox.layout.flex.vertical,
+})
+
 awful.screen.connect_for_each_screen(function(s)
 	s.box = init_box(s, 0.18, 0.81, 0.9, 0.05)
-	s.box.widget = clock
+	s.box.widget = layout
 end)
