@@ -121,9 +121,10 @@ keyboard.append_global_keybindings({
 	awful.key({}, "Print", function()
 		awful.spawn.with_shell("maim -s | xclip -selection clipboard -t image/png")
 	end, { description = "printscreen", group = "screenshot" }),
+
 	-- Recording --
 	key({ super }, "Print", function()
-		spawn.with_shell("ffmpeg_recorder.sh")
+		spawn.with_shell(os.getenv("HOME") .. "/.local/bin/ffmpeg_recorder.sh")
 	end),
 })
 
