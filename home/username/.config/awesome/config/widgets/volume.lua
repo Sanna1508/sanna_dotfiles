@@ -3,10 +3,12 @@ local spawn = require("awful.spawn")
 local wibox = require("wibox")
 local gears = require("gears")
 local beautiful = require("beautiful")
+local naughty = require("naughty")
 
 local container = require("config.widgets.container_a")
 
 local istimerended = false
+local mute_icon = { "󰝟", "󰕾" }
 
 -- delayed timer for not making lag
 local timer = gears.timer({
@@ -34,24 +36,48 @@ local volume_slider = wibox.widget({
 	widget = wibox.widget.slider,
 })
 
+-- get a basic textbox
+local mutebox = wibox.widget({
+	text = mute_icon[1],
+	align = "center",
+	valign = "center",
+	widget = wibox.widget.textbox,
+})
+
+-- return the current volume (int 0 to 100)
 local function get_vol()
-	awful.spawn.easy_async_with_shell("pactl get-sink-volume @DEFAULT_SINK@", function(stdout)
-		return tonumber(stdout:match("(%d+)%%"))
+	awful.spawn.easy_async("pactl get-sink-volume @DEFAULT_SINK@", function(stdout)
+		local current_vol = tonumber(stdout:match("(%d+)%%"))
+		if current_vol then
+			return current_vol
+		end
 	end)
 end
 
-local function get_muted_state()
-	awful.spawn.easy_async_with_shell("pactl get-sink-mute @DEFAULT_SINK@", function(stdout)
-		return stdout:match("Mute: yes") and true or false
-	end)
-end
-
+-- update new volume
 local function update_vol(new_vol)
-	spawn("pactl set-sink-volume @DEFAULT_SINK@ " .. tostring(new_vol) .. "%")
+	if get_vol() ~= new_vol then
+		spawn("pactl set-sink-volume @DEFAULT_SINK@ " .. tostring(new_vol) .. "%")
+	end
 end
 
 local function update_slider(new_val)
 	volume_slider.value = new_val
+end
+
+-- update mutebox
+local function update_mutebox()
+	awful.spawn.easy_async("pactl get-sink-mute @DEFAULT_SINK@", function(stdout)
+		local status = stdout:match("Mute:%s*(%a+)")
+		naughty.notification({
+			message = status,
+		})
+		if status == "yes" then
+			mutebox.text = mute_icon[1]
+		else
+			mutebox.text = mute_icon[2]
+		end
+	end)
 end
 
 local function toggle_mute_state()
@@ -68,6 +94,24 @@ volume_slider:connect_signal("property::value", function(slider)
 	end
 end)
 
-update_slider(get_vol() or 75)
+mutebox:connect_signal("button::press", function()
+	toggle_mute_state()
+	update_mutebox()
+end)
 
-return container(volume_slider, 6, "center", "center")
+update_slider(get_vol() or 75)
+update_mutebox()
+
+local volume_widget = wibox.widget({
+	{
+		widget = mutebox,
+	},
+	{
+		widget = volume_slider,
+	},
+	layout = wibox.layout.ratio.horizontal,
+})
+volume_widget:set_ratio(1, 0.2)
+volume_widget:set_ratio(2, 0.8)
+
+return container(volume_widget, 0, "center", "center")
