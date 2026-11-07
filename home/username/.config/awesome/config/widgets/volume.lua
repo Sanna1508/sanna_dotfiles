@@ -101,10 +101,24 @@ update_mutebox()
 
 local volume_widget = wibox.widget({
 	{
-		widget = mutebox,
+		{
+			mutebox,
+			fill_vertical = true,
+			content_fill_vertical = true,
+			fill_horizontal = true,
+			content_fill_horizontal = true,
+			halign = "left",
+			widget = wibox.container.place,
+		},
+		bg = beautiful.fg_normal,
+		fg = beautiful.bg_normal,
+		shape = gears.shape.circle,
+		widget = wibox.container.background,
 	},
 	{
-		widget = volume_slider,
+		volume_slider,
+		left = 8,
+		widget = wibox.container.margin,
 	},
 	layout = wibox.layout.ratio.horizontal,
 })

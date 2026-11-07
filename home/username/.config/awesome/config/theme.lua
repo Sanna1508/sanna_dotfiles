@@ -4,9 +4,9 @@ beautiful.init((os.getenv("HOME") .. "/.config") .. "/awesome/config/theme_catpu
 
 beautiful.screenshot_frame_color = beautiful.fg_focus
 
-beautiful.notification_width = 200
-beautiful.notification_max_width = 200
-beautiful.notification_max_height = 400
+-- beautiful.notification_width = 200
+-- beautiful.notification_max_width = 200
+-- beautiful.notification_max_height = 200
 beautiful.notification_opacity = 0.9
 
 -- animation

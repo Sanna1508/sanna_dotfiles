@@ -8,7 +8,7 @@ local istimerended = false
 
 -- delayed timer for not making lag
 local timer = gears.timer({
-	timeout = 0.05,
+	timeout = 0.01,
 	autostart = true,
 	single_shot = true,
 	callback = function()

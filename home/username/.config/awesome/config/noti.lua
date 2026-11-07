@@ -34,14 +34,16 @@ timer({
 	call_now = true,
 	autostart = true,
 	callback = function()
-		awful.spawn.easy_async({ "cat", "/sys/class/power_supply/BAT0/capacity" }, function(out)
-			local battery = tonumber(out:match("(%d+)"))
-			if battery <= 10 then
-				naughty.notification({
-					title = "Battery",
-					message = "battery is " .. out,
-				})
-			end
+		awful.spawn.easy_async({ "cat", "/sys/class/power_supply/BAT0/status" }, function(status)
+			awful.spawn.easy_async({ "cat", "/sys/class/power_supply/BAT0/capacity" }, function(out)
+				local battery = tonumber(out:match("(%d+)"))
+				if battery <= 10 and status:match("Discharging") then
+					naughty.notification({
+						title = "Battery",
+						message = "battery is " .. out .. status,
+					})
+				end
+			end)
 		end)
 	end,
 })
