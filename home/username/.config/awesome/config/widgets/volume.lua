@@ -69,9 +69,6 @@ end
 local function update_mutebox()
 	awful.spawn.easy_async("pactl get-sink-mute @DEFAULT_SINK@", function(stdout)
 		local status = stdout:match("Mute:%s*(%a+)")
-		naughty.notification({
-			message = status,
-		})
 		if status == "yes" then
 			mutebox.text = mute_icon[1]
 		else
@@ -111,7 +108,13 @@ local volume_widget = wibox.widget({
 	},
 	layout = wibox.layout.ratio.horizontal,
 })
-volume_widget:set_ratio(1, 0.2)
-volume_widget:set_ratio(2, 0.8)
+volume_widget:set_ratio(1, 0.1)
+volume_widget:set_ratio(2, 0.9)
 
-return container(volume_widget, 0, "center", "center")
+return wibox.widget({
+	volume_widget,
+	margins = 6,
+	widget = wibox.container.margin,
+})
+
+-- return container(volume_widget, 0, "center", "center")
