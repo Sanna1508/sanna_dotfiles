@@ -36,6 +36,26 @@ local volume_slider = wibox.widget({
 	widget = wibox.widget.slider,
 })
 
+-- local volume_progressbar = wibox.widget({
+-- 	max_value = 100,
+-- 	value = 25,
+-- 	forced_height = 15,
+-- 	color = beautiful.fg_normal,
+-- 	widget = wibox.widget.progressbar,
+-- })
+
+-- local volume_test = wibox.widget({
+-- 	-- {
+-- 	-- 	volume_progressbar,
+-- 	-- 	widget = wibox.container.margin,
+-- 	-- },
+-- 	{
+-- 		volume_slider,
+-- 		widget = wibox.container.margin,
+-- 	},
+-- 	layout = wibox.layout.stack,
+-- })
+
 -- get a basic textbox
 local mutebox = wibox.widget({
 	text = mute_icon[1],
@@ -103,11 +123,11 @@ local volume_widget = wibox.widget({
 	{
 		{
 			mutebox,
-			fill_vertical = true,
+			-- fill_vertical = true,
 			content_fill_vertical = true,
-			fill_horizontal = true,
-			content_fill_horizontal = true,
-			halign = "left",
+			-- fill_horizontal = true,
+			-- content_fill_horizontal = true,
+			halign = "center",
 			widget = wibox.container.place,
 		},
 		bg = beautiful.fg_normal,
@@ -122,8 +142,8 @@ local volume_widget = wibox.widget({
 	},
 	layout = wibox.layout.ratio.horizontal,
 })
-volume_widget:set_ratio(1, 0.1)
-volume_widget:set_ratio(2, 0.9)
+volume_widget:set_ratio(1, 0.15)
+volume_widget:set_ratio(2, 0.85)
 
 return wibox.widget({
 	volume_widget,

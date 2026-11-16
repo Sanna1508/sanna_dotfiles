@@ -27,4 +27,11 @@ ruled.client.connect_signal("request::rules", function()
 			},
 		},
 	})
+	ruled.client.append_rule({
+		id = "zen",
+		rule = { class = "^zen$" },
+		properties = {
+			placement = awful.placement.centered,
+		},
+	})
 end)

@@ -6,6 +6,7 @@ local gears = require("gears")
 local brightness = require("config.widgets.brightness")
 local clock = require("config.widgets.clock")
 local volume = require("config.widgets.volume")
+local volume_mute_icon = require("config.icons.volume_mute")
 
 local function init_box(s, boxwidth_percent, x, boxheight_percent, y)
 	boxwidth_percent = (boxwidth_percent > 0 and boxwidth_percent <= 1 and boxwidth_percent) or 0.1
@@ -44,6 +45,9 @@ local layout = wibox.widget({
 	},
 	{
 		widget = volume,
+	},
+	{
+		widget = wibox.widget.imagebox(volume_mute_icon, true, gears.shape.rectangle),
 	},
 	layout = wibox.layout.flex.vertical,
 })

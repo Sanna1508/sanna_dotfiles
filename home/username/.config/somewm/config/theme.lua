@@ -4,6 +4,8 @@ beautiful.init((os.getenv("HOME") .. "/.config") .. "/somewm/config/theme_catpuc
 
 beautiful.screenshot_frame_color = beautiful.fg_focus
 
+beautiful.font = "MapleMono 8 semibold"
+
 -- beautiful.notification_width = 200
 -- beautiful.notification_max_width = 200
 -- beautiful.notification_max_height = 200
@@ -15,5 +17,5 @@ beautiful.animation_disappear_duration = 0.1
 
 beautiful.animation_maximize_duration = 0.2
 
-beautiful.animation_focus_duration = 0.6
+-- beautiful.animation_focus_duration = 0.6
 beautiful.animation_tag = "none"
