@@ -18,6 +18,14 @@ ruled.client.connect_signal("request::rules", function()
 		},
 	})
 	ruled.client.append_rule({
+		id = "maximized",
+		rule_any = { class = { "^md.obsidian.Obsidian$" } },
+		except = { class = "^md.obsidian.Obsidian$", name = "^Obsidian$" },
+		properties = {
+			maximized = true,
+		},
+	})
+	ruled.client.append_rule({
 		id = "kitty",
 		rule = { class = "^kitty$" },
 		properties = {
@@ -32,6 +40,28 @@ ruled.client.connect_signal("request::rules", function()
 		rule = { class = "^zen$" },
 		properties = {
 			placement = awful.placement.centered,
+		},
+	})
+	ruled.client.append_rule({
+		id = "obsidian",
+		rule = { class = "^md.obsidian.Obsidian$", name = "^Obsidian$" },
+		properties = {
+			maximized = false,
+			placement = awful.placement.centered,
+		},
+	})
+	ruled.client.append_rule({
+		id = "keypop",
+		rule = { class = "^keypop$" },
+		properties = {
+			below = true,
+			sticky = true,
+			focusable = false,
+			width = 1432,
+			height = 800,
+			x = -50,
+			y = -10,
+			-- maximized = true,
 		},
 	})
 end)

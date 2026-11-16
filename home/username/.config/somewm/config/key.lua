@@ -90,13 +90,19 @@ keyboard.append_global_keybindings({
 client.connect_signal("request::default_mousebindings", function()
 	awful.mouse.append_client_mousebindings({
 		awful.button({}, 1, function(c)
-			c:activate({ context = "mouse_click" })
+			if c.focusable == true then
+				c:activate({ context = "mouse_click" })
+			end
 		end),
 		awful.button({ super }, 1, function(c)
-			c:activate({ context = "mouse_click", action = "mouse_move" })
+			if c.focusable == true then
+				c:activate({ context = "mouse_click", action = "mouse_move" })
+			end
 		end),
 		awful.button({ super }, 3, function(c)
-			c:activate({ context = "mouse_click", action = "mouse_resize" })
+			if c.focusable == true then
+				c:activate({ context = "mouse_click", action = "mouse_resize" })
+			end
 		end),
 	})
 end)
