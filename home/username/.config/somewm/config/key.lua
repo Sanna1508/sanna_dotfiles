@@ -50,12 +50,30 @@ end)
 -- client behaviors
 keyboard.append_global_keybindings({
 	key({ super }, "Tab", function()
+		-- local c = client.focus
+		-- if c.maximized == false then
 		awful.client.focus.byidx(1)
+		-- end
 	end, { description = "focus the next client", group = "basic" }),
 	key({ super }, "Space", function()
-		awful.layout.inc(1)
-		spawn("notify-send '" .. awful.layout.getname() .. "'")
+		-- awful.layout.inc(1)
+		awful.layout.suit.carousel.cycle_column_width()
+		-- spawn("notify-send '" .. awful.layout.getname() .. "'")
 	end, { description = "toggle next layout", group = "basic" }),
+})
+
+-- layout behaviors
+keyboard.append_client_keybindings({
+	key({ super }, "Left", function()
+		-- awful.layout.suit.carousel.move_column(-1)
+		awful.client.focus.bydirection("left")
+		-- awful.layout.suit.carousel.adjust_column_width(-0.05)
+	end),
+	key({ super }, "Right", function()
+		-- awful.layout.suit.carousel.move_column(1)
+		awful.client.focus.bydirection("right")
+		-- awful.layout.suit.carousel.adjust_column_width(0.05)
+	end),
 })
 
 -- tag behaviors
@@ -103,6 +121,27 @@ client.connect_signal("request::default_mousebindings", function()
 			if c.focusable == true then
 				c:activate({ context = "mouse_click", action = "mouse_resize" })
 			end
+		end),
+		-- test carousel
+		awful.button({ super }, 4, function()
+			-- local carousel = awful.layout.suit.carousel
+			-- local t = awful.screen.focused().selected_tag
+			-- if t and (t.layout == carousel or t.layout == carousel.vertical) then
+			-- 	carousel.scroll_by(t, -0.1)
+			-- end
+			-- awful.layout.suit.carousel.move_column(-1)
+			awful.client.focus.bydirection("left")
+			-- awful.layout.suit.carousel.adjust_column_width(-0.05)
+		end),
+		awful.button({ super }, 5, function()
+			-- local carousel = awful.layout.suit.carousel
+			-- local t = awful.screen.focused().selected_tag
+			-- if t and (t.layout == carousel or t.layout == carousel.vertical) then
+			-- 	carousel.scroll_by(t, 0.1)
+			-- end
+			-- awful.layout.suit.carousel.move_column(-1)
+			awful.client.focus.bydirection("right")
+			-- awful.layout.suit.carousel.adjust_column_width(-0.05)
 		end),
 	})
 end)

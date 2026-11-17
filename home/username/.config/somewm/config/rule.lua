@@ -121,7 +121,7 @@ ruled.client.connect_signal("request::rules", function()
 	-- System tool
 	ruled.client.append_rule({
 		id = "system tool",
-		rule_any = { class = { "^nmtui$", "^bluetui$" } },
+		rule_any = { class = { "^nmtui$", "^bluetui$", "^btop$" } },
 		properties = {
 			tag = "system",
 		},

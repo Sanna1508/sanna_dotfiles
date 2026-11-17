@@ -19,3 +19,10 @@ beautiful.animation_maximize_duration = 0.2
 
 beautiful.animation_focus_duration = 0.1
 beautiful.animation_tag = "none"
+
+-- casrousel layout
+beautiful.carousel_default_column_width = 0.75
+beautiful.animation_layout_duration = 0.3
+beautiful.carousel_center_mode = "on-overflow"
+-- beautiful.carousel_peek_width = 10
+-- beautiful.carousel_dynamic_peek_width = 40

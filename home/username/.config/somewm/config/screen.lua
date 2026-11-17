@@ -2,11 +2,13 @@ local awful = require("awful")
 
 tag.connect_signal("request::default_layouts", function()
 	awful.layout.append_default_layouts({
-		awful.layout.suit.floating,
-		awful.layout.suit.max.fullscreen,
-		awful.layout.suit.magnifier,
+		awful.layout.suit.carousel,
+		awful.layout.suit.tile,
 	})
 end)
+
+awful.layout.suit.carousel.width_presets = { 0.5, 0.75, 1.0 }
+awful.layout.suit.carousel.make_gesture_binding()
 
 screen.connect_signal("request::desktop_decoration", function(s)
 	-- Restore saved tags if this output was previously removed
