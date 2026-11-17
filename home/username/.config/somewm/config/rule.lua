@@ -17,14 +17,8 @@ ruled.client.connect_signal("request::rules", function()
 			placement = awful.placement.no_overlap + awful.placement.no_offscreen,
 		},
 	})
-	ruled.client.append_rule({
-		id = "maximized",
-		rule_any = { class = { "^md.obsidian.Obsidian$" } },
-		except = { class = "^md.obsidian.Obsidian$", name = "^Obsidian$" },
-		properties = {
-			maximized = true,
-		},
-	})
+
+	-- kitty's animation
 	ruled.client.append_rule({
 		id = "kitty",
 		rule = { class = "^kitty$" },
@@ -35,21 +29,67 @@ ruled.client.connect_signal("request::rules", function()
 			},
 		},
 	})
+
+	-- Yazi
 	ruled.client.append_rule({
-		id = "zen",
+		id = "yazi",
+		rule = { class = "^yazi$" },
+		properties = {
+			tag = "file",
+			animation = {
+				appear = "scale",
+				disappear = "fade",
+			},
+		},
+	})
+	-- Ricing
+	ruled.client.append_rule({
+		id = "yazi",
+		rule = { class = "^yazi_ricing$" },
+		properties = {
+			tag = "rice",
+			animation = {
+				appear = "scale",
+				disappear = "fade",
+			},
+		},
+	})
+
+	-- Zen Browser
+	ruled.client.append_rule({
+		id = "zen_main",
+		rule = { class = "^zen$", name = "^Zen Browser$" },
+		properties = {
+			maximized = true,
+		},
+	})
+	ruled.client.append_rule({
+		id = "zen_bitwarden",
 		rule = { class = "^zen$" },
 		properties = {
 			placement = awful.placement.centered,
 		},
 	})
+
+	-- Obsidian
 	ruled.client.append_rule({
-		id = "obsidian",
+		id = "obsidian_main",
+		rule_any = { class = { "^md.obsidian.Obsidian$" } },
+		except = { class = "^md.obsidian.Obsidian$", name = "^Obsidian$" },
+		properties = {
+			maximized = true,
+		},
+	})
+	ruled.client.append_rule({
+		id = "obsidian_vault_popup",
 		rule = { class = "^md.obsidian.Obsidian$", name = "^Obsidian$" },
 		properties = {
 			maximized = false,
 			placement = awful.placement.centered,
 		},
 	})
+
+	-- keypop
 	ruled.client.append_rule({
 		id = "keypop",
 		rule = { class = "^keypop$" },
@@ -62,6 +102,14 @@ ruled.client.connect_signal("request::rules", function()
 			x = -50,
 			y = -10,
 			-- maximized = true,
+		},
+	})
+	-- System tool
+	ruled.client.append_rule({
+		id = "system tool",
+		rule_any = { class = { "^nmtui$", "^bluetui$" } },
+		properties = {
+			tag = "system",
 		},
 	})
 end)
