@@ -14,14 +14,14 @@ keymap = [
 	{ on = "<C-z>", run = "suspend",            desc = "Suspend the process" },
 
 	# Hopping
-	{ on = "k", run = "arrow prev", desc = "Previous file" },
-	{ on = "j", run = "arrow next", desc = "Next file" },
+	# { on = "k", run = "arrow prev", desc = "Previous file" },
+	# { on = "j", run = "arrow next", desc = "Next file" },
 
 	{ on = "<Up>",   run = "arrow prev", desc = "Previous file" },
 	{ on = "<Down>", run = "arrow next", desc = "Next file" },
 
-	{ on = "<C-u>", run = "arrow -50%",  desc = "Move cursor up half page" },
-	{ on = "<C-d>", run = "arrow 50%",   desc = "Move cursor down half page" },
+	{ on = "<C-Up>", run = "arrow -50%",  desc = "Move cursor up half page" },
+	{ on = "<C-Down>", run = "arrow 50%",   desc = "Move cursor down half page" },
 	{ on = "<C-b>", run = "arrow -100%", desc = "Move cursor up one page" },
 	{ on = "<C-f>", run = "arrow 100%",  desc = "Move cursor down one page" },
 
@@ -128,8 +128,8 @@ keymap = [
 	{ on = [ "g", "h" ],       run = "cd ~",             desc = "Go home" },
 	{ on = [ "g", "c" ],       run = "cd ~/.config",     desc = "Go ~/.config" },
 	{ on = [ "g", "d" ],       run = "cd ~/Downloads",   desc = "Go ~/Downloads" },
+	{ on = [ "g", "l" ],       run = "cd ~/Projects",    desc = "Go ~/Projects" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Jump interactively" },
-	{ on = [ "g", "f" ],       run = "follow",           desc = "Follow hovered symlink" },
 
 	# Tabs
 	{ on = [ "t", "t" ], run = "tab_create --current",     desc = "Create a new tab in CWD" },

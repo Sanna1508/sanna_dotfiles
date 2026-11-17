@@ -53,6 +53,12 @@ ruled.client.connect_signal("request::rules", function()
 				disappear = "fade",
 			},
 		},
+		callback = function()
+			local t = awful.tag.find_by_name(awful.screen.focused(), "rice")
+			if not t.selected then
+				awful.tag.viewtoggle(t)
+			end
+		end,
 	})
 
 	-- Zen Browser

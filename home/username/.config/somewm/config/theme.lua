@@ -4,7 +4,7 @@ beautiful.init((os.getenv("HOME") .. "/.config") .. "/somewm/config/theme_catpuc
 
 beautiful.screenshot_frame_color = beautiful.fg_focus
 
-beautiful.font = "MapleMono 8 semibold"
+beautiful.font = "MapleMonoNFCN 8 semibold"
 
 -- beautiful.notification_width = 200
 -- beautiful.notification_max_width = 200
