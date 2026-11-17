@@ -5,6 +5,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 local naughty = require("naughty")
 
 local terminal = "kitty"
+local editor = "yazi"
 
 local menus = {}
 
@@ -21,7 +22,13 @@ menus.wmmenu = awful.menu({
 			function()
 				local t = awful.tag.find_by_name(awful.screen.focused(), "rice")
 				if #t:clients() < 1 then
-					spawn(terminal .. " --app-id yazi_ricing yazi " .. os.getenv("HOME") .. "/.config/somewm/")
+					spawn({
+						terminal,
+						"--app-id",
+						editor .. "_ricing",
+						editor,
+						os.getenv("HOME") .. "/.config/somewm/",
+					})
 				end
 				if not t.selected then
 					awful.tag.viewtoggle(t)
