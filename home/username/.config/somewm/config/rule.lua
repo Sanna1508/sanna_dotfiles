@@ -77,6 +77,7 @@ ruled.client.connect_signal("request::rules", function()
 		rule_any = { class = { "^md.obsidian.Obsidian$" } },
 		except = { class = "^md.obsidian.Obsidian$", name = "^Obsidian$" },
 		properties = {
+			tag = "note",
 			maximized = true,
 		},
 	})
@@ -84,24 +85,22 @@ ruled.client.connect_signal("request::rules", function()
 		id = "obsidian_vault_popup",
 		rule = { class = "^md.obsidian.Obsidian$", name = "^Obsidian$" },
 		properties = {
+			tag = "note",
 			maximized = false,
 			placement = awful.placement.centered,
 		},
 	})
 
-	-- keypop
+	--  showmethekey
 	ruled.client.append_rule({
-		id = "keypop",
-		rule = { class = "^keypop$" },
+		id = "showmethekey",
+		rule = { class = "^one.alynx.showmethekey$", name = "^Floating%sWindow" },
 		properties = {
-			below = true,
+			ontop = true,
 			sticky = true,
 			focusable = false,
-			width = 1432,
-			height = 800,
-			x = -50,
-			y = -10,
-			-- maximized = true,
+			x = 572,
+			y = 704,
 		},
 	})
 	-- System tool
