@@ -26,6 +26,11 @@ menus.wmmenu = awful.menu({
 				if not t.selected then
 					awful.tag.viewtoggle(t)
 				end
+				local c = t:clients()[1]
+				if c then
+					c:raise()
+					awful.client.focus.byidx(0, c)
+				end
 			end,
 		},
 		{ "restart", awesome.restart },

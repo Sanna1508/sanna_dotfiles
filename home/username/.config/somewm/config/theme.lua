@@ -17,5 +17,5 @@ beautiful.animation_disappear_duration = 0.1
 
 beautiful.animation_maximize_duration = 0.2
 
--- beautiful.animation_focus_duration = 0.6
+beautiful.animation_focus_duration = 0.1
 beautiful.animation_tag = "none"

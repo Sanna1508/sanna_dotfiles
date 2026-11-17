@@ -1,5 +1,6 @@
 local ruled = require("ruled")
 local awful = require("awful")
+local beautiful = require("beautiful")
 
 awesome.set_idle_timeout("display-off", 1800, function()
 	awesome.dpms_off()
@@ -60,13 +61,21 @@ ruled.client.connect_signal("request::rules", function()
 		id = "zen_main",
 		rule = { class = "^zen$", name = "^Zen Browser$" },
 		properties = {
+			tag = "browser",
 			maximized = true,
 		},
+		callback = function()
+			local t = awful.tag.find_by_name(awful.screen.focused(), "browser")
+			if not t.selected then
+				awful.tag.viewtoggle(t)
+			end
+		end,
 	})
 	ruled.client.append_rule({
 		id = "zen_bitwarden",
 		rule = { class = "^zen$" },
 		properties = {
+			tag = "browser",
 			placement = awful.placement.centered,
 		},
 	})
@@ -80,6 +89,12 @@ ruled.client.connect_signal("request::rules", function()
 			tag = "note",
 			maximized = true,
 		},
+		callback = function()
+			local t = awful.tag.find_by_name(awful.screen.focused(), "note")
+			if not t.selected then
+				awful.tag.viewtoggle(t)
+			end
+		end,
 	})
 	ruled.client.append_rule({
 		id = "obsidian_vault_popup",
@@ -99,8 +114,8 @@ ruled.client.connect_signal("request::rules", function()
 			ontop = true,
 			sticky = true,
 			focusable = false,
-			x = 572,
-			y = 704,
+			placement = awful.placement.bottom_right,
+			border_width = 0,
 		},
 	})
 	-- System tool
