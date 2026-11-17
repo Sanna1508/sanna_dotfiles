@@ -64,7 +64,7 @@ local clientstate = {
 		function()
 			local c = client.focus
 			c.fullscreen = not c.fullscreen
-			c.focus:raise()
+			c:raise()
 		end,
 	},
 }
