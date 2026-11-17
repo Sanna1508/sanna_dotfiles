@@ -19,7 +19,13 @@ menus.wmmenu = awful.menu({
 		{
 			"edit config",
 			function()
-				spawn(terminal .. " --app-id yazi_ricing yazi " .. os.getenv("HOME") .. "/.config/somewm/")
+				local t = awful.tag.find_by_name(awful.screen.focused(), "rice")
+				if #t:clients() < 1 then
+					spawn(terminal .. " --app-id yazi_ricing yazi " .. os.getenv("HOME") .. "/.config/somewm/")
+				end
+				if not t.selected then
+					awful.tag.viewtoggle(t)
+				end
 			end,
 		},
 		{ "restart", awesome.restart },
