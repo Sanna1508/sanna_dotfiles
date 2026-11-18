@@ -5,7 +5,16 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 local naughty = require("naughty")
 
 local terminal = "kitty"
-local editor = "yazi"
+local filemanager = "yazi"
+local editor = terminal
+	.. " --class "
+	.. filemanager
+	.. "_ricing"
+	.. " "
+	.. filemanager
+	.. " "
+	.. os.getenv("HOME")
+	.. "/.config/somewm/"
 
 local menus = {}
 
@@ -21,24 +30,22 @@ menus.wmmenu = awful.menu({
 			"edit config",
 			function()
 				local t = awful.tag.find_by_name(awful.screen.focused(), "rice")
-				if #t:clients() < 1 then
-					spawn({
-						terminal,
-						"--app-id",
-						editor .. "_ricing",
-						editor,
-						os.getenv("HOME") .. "/.config/somewm/",
+				if t and #t:clients() < 1 then
+					spawn(editor)
+					naughty.notification({
+						message = editor,
 					})
 				end
-				if not t.selected then
+				if t and not t.selected then
 					awful.tag.viewtoggle(t)
 				end
 				local c = t:clients()[1]
 				if c then
 					c:raise()
 					awful.client.focus.byidx(0, c)
-				else
-					awful.spawn("notify-send '" .. c.name .. "'")
+					naughty.notification({
+						message = c.class,
+					})
 				end
 			end,
 		},
