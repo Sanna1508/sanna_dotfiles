@@ -20,6 +20,10 @@ beautiful.animation_maximize_duration = 0.2
 beautiful.animation_focus_duration = 0.1
 beautiful.animation_tag = "none"
 
+beautiful.dpi_rounded_corner = 8
+-- layout
+beautiful.useless_gap = 5
+
 -- casrousel layout
 beautiful.carousel_default_column_width = 0.75
 beautiful.animation_layout_duration = 0.3

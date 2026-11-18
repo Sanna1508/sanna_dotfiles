@@ -1,5 +1,7 @@
 local ruled = require("ruled")
 local awful = require("awful")
+local gears = require("gears")
+local dpi = require("beautiful.xresources").apply_dpi
 local beautiful = require("beautiful")
 
 awesome.set_idle_timeout("display-off", 1800, function()
@@ -16,6 +18,15 @@ ruled.client.connect_signal("request::rules", function()
 			raise = true,
 			screen = awful.screen.preferred,
 			placement = awful.placement.no_overlap + awful.placement.no_offscreen,
+		},
+	})
+	ruled.client.append_rule({
+		id = "rounded",
+		rule = {},
+		properties = {
+			shape = function(cr, w, h)
+				gears.shape.rounded_rect(cr, w, h, dpi(beautiful.dpi_rounded_corner))
+			end,
 		},
 	})
 
@@ -43,6 +54,19 @@ ruled.client.connect_signal("request::rules", function()
 			},
 		},
 	})
+
+	ruled.client.append_rule({
+		id = "yazi_portal",
+		rule = { class = "^portal$" },
+		properties = {
+			floating = true,
+			placement = awful.placement.centered,
+			animation = {
+				appear = "scale",
+				disappear = "fade",
+			},
+		},
+	})
 	-- Ricing
 	ruled.client.append_rule({
 		id = "yazi",
@@ -62,22 +86,24 @@ ruled.client.connect_signal("request::rules", function()
 		rule = { class = "^zen$", name = "^Zen Browser$" },
 		properties = {
 			tag = "browser",
-			maximized = true,
+			carousel_column_width = 1,
 		},
-		callback = function()
+		callback = function(c)
 			local t = awful.tag.find_by_name(awful.screen.focused(), "browser")
 			if not t.selected then
 				awful.tag.viewtoggle(t)
 			end
+			c:connect_signal("property::name", function()
+				if c.name and c.name:match("^Extension: %(Bitwarden Password Manager%)") then
+					c.floating = true
+					c.width = 500
+					c.height = 600
+					awful.placement.centered(c)
+				else
+					c.maximized = true
+				end
+			end)
 		end,
-	})
-	ruled.client.append_rule({
-		id = "zen_bitwarden",
-		rule = { class = "^zen$" },
-		properties = {
-			tag = "browser",
-			placement = awful.placement.centered,
-		},
 	})
 
 	-- Obsidian

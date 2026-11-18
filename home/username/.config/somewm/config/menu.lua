@@ -56,10 +56,6 @@ local clientstate = {
 		function()
 			local c = client.focus
 			c.maximized = not c.maximized
-			-- naughty.notification({
-			-- 	title = c.name,
-			-- 	message = "maximized is " .. (c.maximized and "true" or "false"),
-			-- })
 			c:raise()
 		end,
 	},
@@ -106,6 +102,7 @@ local layouts = {
 	awful.layout.suit.carousel,
 	awful.layout.suit.tile,
 	awful.layout.suit.max,
+	awful.layout.suit.floating,
 }
 local layoutmenu = {}
 for i = 1, #layouts do
