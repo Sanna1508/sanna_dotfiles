@@ -8,6 +8,7 @@ local naughty = require("naughty")
 local menu = require("config.menu")
 local wmmenu = menu.wmmenu
 local clientmenu = menu.clientmenu
+local layoutmenu = menu.layoutmenu
 
 local terminal = "kitty"
 local launcher = "pkill -9 fuzzel || fuzzel"
@@ -30,6 +31,10 @@ keyboard.append_global_keybindings({
 		wmmenu:toggle({ coords = { x = 400, y = 320 } })
 	end),
 	{ description = "toggle wmmenu", group = "menus" },
+	key({ super }, "apostrophe", function()
+		layoutmenu:toggle({ coords = { x = 400, y = 320 } })
+	end),
+	{ description = "toggle layoutmenu", group = "menus" },
 	key({ super }, "f", function()
 		if awful.screen.focused().box then
 			awful.screen.focused().box.visible = not awful.screen.focused().box.visible

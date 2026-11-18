@@ -102,6 +102,25 @@ menus.clientmenu = awful.menu({
 	},
 })
 
+local layouts = {
+	awful.layout.suit.carousel,
+	awful.layout.suit.tile,
+	awful.layout.suit.max,
+}
+local layoutmenu = {}
+for i = 1, #layouts do
+	layoutmenu[i] = {
+		awful.layout.getname(layouts[i]),
+		function()
+			awful.layout.set(layouts[i])
+		end,
+	}
+end
+
+menus.layoutmenu = awful.menu({
+	items = layoutmenu,
+})
+
 -- setup menu keyboard
 awful.menu.menu_keys = {
 	up = { "Up", "," },
