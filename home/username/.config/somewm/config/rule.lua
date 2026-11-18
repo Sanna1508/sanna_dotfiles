@@ -104,8 +104,8 @@ ruled.client.connect_signal("request::rules", function()
 					c.width = 500
 					c.height = 600
 					awful.placement.centered(c)
-				else
-					awful.spawn("notify-send '" .. c.name .. "'")
+					-- else
+					-- 	awful.spawn("notify-send '" .. c.name .. "'")
 				end
 			end)
 		end,
