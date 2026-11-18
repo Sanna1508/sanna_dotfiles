@@ -82,11 +82,12 @@ ruled.client.connect_signal("request::rules", function()
 
 	-- Zen Browser
 	ruled.client.append_rule({
-		id = "zen_main",
-		rule = { class = "^zen$", name = "^Zen Browser$" },
+		id = "zen",
+		rule = { class = "^zen$" },
 		properties = {
 			tag = "browser",
 			carousel_column_width = 1,
+			-- maximized = true,
 		},
 		callback = function(c)
 			local t = awful.tag.find_by_name(awful.screen.focused(), "browser")
@@ -94,13 +95,17 @@ ruled.client.connect_signal("request::rules", function()
 				awful.tag.viewtoggle(t)
 			end
 			c:connect_signal("property::name", function()
-				if c.name and c.name:match("^Extension: %(Bitwarden Password Manager%)") then
+				if
+					c.name
+					and (c.name:match("^Extension: %(Bitwarden Password Manager%)") or c.name:match("^Page Info —"))
+				then
+					c.maximized = false
 					c.floating = true
 					c.width = 500
 					c.height = 600
 					awful.placement.centered(c)
 				else
-					c.maximized = true
+					awful.spawn("notify-send '" .. c.name .. "'")
 				end
 			end)
 		end,

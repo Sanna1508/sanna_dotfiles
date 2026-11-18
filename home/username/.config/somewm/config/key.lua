@@ -55,13 +55,7 @@ end)
 -- client behaviors
 keyboard.append_global_keybindings({
 	key({ super }, "Tab", function()
-		local c_old = client.focus
 		awful.client.focus.byidx(1)
-		local c_new = client.focus
-		if c_old.maximized == true then
-			c_old.maximized = false
-			c_new.maximized = true
-		end
 	end, { description = "focus the next client", group = "basic" }),
 	key({ super }, "Space", function()
 		awful.layout.suit.carousel.cycle_column_width()

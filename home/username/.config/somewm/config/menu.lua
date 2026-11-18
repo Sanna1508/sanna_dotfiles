@@ -37,6 +37,8 @@ menus.wmmenu = awful.menu({
 				if c then
 					c:raise()
 					awful.client.focus.byidx(0, c)
+				else
+					awful.spawn("notify-send '" .. c.name .. "'")
 				end
 			end,
 		},
