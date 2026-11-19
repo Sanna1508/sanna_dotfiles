@@ -19,13 +19,26 @@ client.connect_signal("property::maximized", function(c)
 	end
 end)
 
--- switch maximize on focus if old focus was maximized
-client.connect_signal("focus", function(c)
-	local old_focus = awful.client.focus.history.get(c.screen, 1)
-	if old_focus and old_focus.maximized == true and c.floating == false then
-		old_focus.maximized = false
-		c.maximized = true
-		-- else
-		-- awful.spawn("notify-send '" .. old_focus.name .. " to " .. c.name .. "'")
+-- return a table containing maximized clients amongs visible clients
+local function get_maximized_clients()
+	local clients = awful.screen.focused():get_clients()
+	local maximized_clients = {}
+	for _, c in pairs(clients) do
+		if c.maximized == true then
+			table.insert(maximized_clients, c)
+		end
 	end
+	return maximized_clients
+end
+
+-- switch maximize on focus if at least a visible client was maximized
+client.connect_signal("focus", function(c)
+	local maximized_clients = get_maximized_clients()
+	if #maximized_clients >= 1 and c.floating == false and c.role ~= "popup" then
+		for _, mc in pairs(maximized_clients) do
+			mc.maximized = false
+		end
+		c.maximized = true
+	end
+	-- awful.spawn("notify-send '" .. tostring(#maximized_clients) .. "'")
 end)

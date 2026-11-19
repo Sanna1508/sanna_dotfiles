@@ -99,6 +99,7 @@ ruled.client.connect_signal("request::rules", function()
 					c.name
 					and (c.name:match("^Extension: %(Bitwarden Password Manager%)") or c.name:match("^Page Info —"))
 				then
+					c.role = "popup"
 					c.maximized = false
 					c.floating = true
 					c.width = 500
