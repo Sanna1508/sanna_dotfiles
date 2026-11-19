@@ -26,6 +26,6 @@ client.connect_signal("focus", function(c)
 		old_focus.maximized = false
 		c.maximized = true
 		-- else
-		awful.spawn("notify-send '" .. old_focus.name .. " to " .. c.name .. "'")
+		-- awful.spawn("notify-send '" .. old_focus.name .. " to " .. c.name .. "'")
 	end
 end)

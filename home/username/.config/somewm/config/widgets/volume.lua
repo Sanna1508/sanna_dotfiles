@@ -2,10 +2,13 @@ local awful = require("awful")
 local spawn = require("awful.spawn")
 local wibox = require("wibox")
 local gears = require("gears")
+local gsurface = require("gears.surface")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
 
 local container = require("config.widgets.container_a")
+
+local icon_dir = gears.filesystem.get_configuration_dir() .. "config/icon/"
 
 local istimerended = false
 local mute_icon = { "󰝟", "󰕾" }
@@ -19,6 +22,9 @@ local timer = gears.timer({
 		istimerended = true
 	end,
 })
+
+-- get a basic textbox
+local mutebox = wibox.widget.textbox(mute_icon[1])
 
 -- get basic slider
 local volume_slider = wibox.widget({
@@ -55,14 +61,6 @@ local volume_slider = wibox.widget({
 -- 	},
 -- 	layout = wibox.layout.stack,
 -- })
-
--- get a basic textbox
-local mutebox = wibox.widget({
-	text = mute_icon[1],
-	align = "center",
-	valign = "center",
-	widget = wibox.widget.textbox,
-})
 
 -- return the current volume (int 0 to 100)
 local function get_vol()
@@ -150,5 +148,3 @@ return wibox.widget({
 	margins = 6,
 	widget = wibox.container.margin,
 })
-
--- return container(volume_widget, 0, "center", "center")
