@@ -23,6 +23,7 @@ ruled.client.connect_signal("request::rules", function()
 	ruled.client.append_rule({
 		id = "rounded",
 		rule = {},
+		except = { maximized = true },
 		properties = {
 			shape = function(cr, w, h)
 				gears.shape.rounded_rect(cr, w, h, dpi(beautiful.dpi_rounded_corner))
@@ -93,7 +94,7 @@ ruled.client.connect_signal("request::rules", function()
 		properties = {
 			tag = "browser",
 			carousel_column_width = 1,
-			-- maximized = true,
+			ff = 0,
 		},
 		callback = function(c)
 			local t = awful.tag.find_by_name(awful.screen.focused(), "browser")
@@ -108,12 +109,11 @@ ruled.client.connect_signal("request::rules", function()
 					c.role = "popup"
 					c.maximized = false
 					c.floating = true
-					c.width = 500
-					c.height = 600
+					c.width = 650
+					c.height = 650
 					awful.placement.centered(c)
-					-- else
-					-- 	awful.spawn("notify-send '" .. c.name .. "'")
 				end
+				c.ff = c.ff + 1
 			end)
 		end,
 	})

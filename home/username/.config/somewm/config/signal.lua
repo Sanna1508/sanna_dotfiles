@@ -34,11 +34,12 @@ end
 -- switch maximize on focus if at least a visible client was maximized
 client.connect_signal("focus", function(c)
 	local maximized_clients = get_maximized_clients()
-	if #maximized_clients >= 1 and c.floating == false and c.role ~= "popup" then
-		for _, mc in pairs(maximized_clients) do
-			mc.maximized = false
+	if c.floating == false then
+		if #maximized_clients >= 1 and ((c.ff == nil) or c.ff > 0) then
+			for _, mc in pairs(maximized_clients) do
+				mc.maximized = false
+			end
+			c.maximized = true
 		end
-		c.maximized = true
 	end
-	-- awful.spawn("notify-send '" .. tostring(#maximized_clients) .. "'")
 end)
