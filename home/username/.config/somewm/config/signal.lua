@@ -34,8 +34,9 @@ end
 -- switch maximize on focus if at least a visible client was maximized
 client.connect_signal("focus", function(c)
 	local maximized_clients = get_maximized_clients()
+	local time_now = os.time()
 	if c.floating == false then
-		if #maximized_clients >= 1 and ((c.ff == nil) or c.ff > 0) then
+		if #maximized_clients >= 1 and ((c.ff == nil) or c.ff > 0 or time_now - c.spawn_time > 5) then
 			for _, mc in pairs(maximized_clients) do
 				mc.maximized = false
 			end

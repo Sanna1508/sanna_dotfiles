@@ -87,6 +87,22 @@ ruled.client.connect_signal("request::rules", function()
 		},
 	})
 
+	-- copyq
+	ruled.client.append_rule({
+		id = "yazi_portal",
+		rule = { class = "^com.github.hluk.copyq$" },
+		properties = {
+			floating = true,
+			width = 500,
+			height = 600,
+			placement = awful.placement.centered,
+			animation = {
+				appear = "scale",
+				disappear = "fade",
+			},
+		},
+	})
+
 	-- Zen Browser
 	ruled.client.append_rule({
 		id = "zen",
@@ -95,6 +111,7 @@ ruled.client.connect_signal("request::rules", function()
 			tag = "browser",
 			carousel_column_width = 1,
 			ff = 0,
+			spawn_time = os.time(),
 		},
 		callback = function(c)
 			local t = awful.tag.find_by_name(awful.screen.focused(), "browser")
