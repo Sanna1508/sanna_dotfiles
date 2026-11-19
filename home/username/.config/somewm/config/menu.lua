@@ -43,9 +43,9 @@ menus.wmmenu = awful.menu({
 				if c then
 					c:raise()
 					awful.client.focus.byidx(0, c)
-					naughty.notification({
-						message = c.class,
-					})
+					-- naughty.notification({
+					-- 	message = c.class,
+					-- })
 				end
 			end,
 		},
