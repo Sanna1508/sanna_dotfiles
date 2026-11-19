@@ -18,6 +18,9 @@ local editor = terminal
 
 local menus = {}
 
+-- local workspace = require("config.workspace")
+-- local ws_a = workspace:init_workspace(awful.screen.focused(), "rice")
+
 menus.wmmenu = awful.menu({
 	items = {
 		{
@@ -26,6 +29,12 @@ menus.wmmenu = awful.menu({
 				hotkeys_popup.show_help(nil, awful.screen.focused())
 			end,
 		},
+		-- {
+		-- 	"test",
+		-- 	function()
+		-- 		awful.spawn("notify-send '" .. ws_a.tags[1] .. "'")
+		-- 	end,
+		-- },
 		{
 			"edit config",
 			function()
