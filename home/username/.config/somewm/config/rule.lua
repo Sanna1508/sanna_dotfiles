@@ -110,6 +110,7 @@ ruled.client.connect_signal("request::rules", function()
 		properties = {
 			tag = "browser",
 			carousel_column_width = 1,
+			-- maximized = true,
 			ff = 0,
 		},
 		callback = function(c)
@@ -123,7 +124,6 @@ ruled.client.connect_signal("request::rules", function()
 					c.name
 					and (c.name:match("^Extension: %(Bitwarden Password Manager%)") or c.name:match("^Page Info —"))
 				then
-					c.role = "popup"
 					c.maximized = false
 					c.floating = true
 					c.width = 650
