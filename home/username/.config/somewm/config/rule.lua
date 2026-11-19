@@ -111,9 +111,9 @@ ruled.client.connect_signal("request::rules", function()
 			tag = "browser",
 			carousel_column_width = 1,
 			ff = 0,
-			spawn_time = os.time(),
 		},
 		callback = function(c)
+			c.spawn_time = os.time()
 			local t = awful.tag.find_by_name(awful.screen.focused(), "browser")
 			if not t.selected then
 				awful.tag.viewtoggle(t)
