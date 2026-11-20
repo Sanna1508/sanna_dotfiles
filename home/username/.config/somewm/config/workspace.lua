@@ -11,8 +11,6 @@ local gears = require("gears")
 -- a workspace is a object that have tags. just show them to screen
 local class = {}
 
-local default_tags_name = {}
-
 function class:get_tags()
 	return self.tags
 end
@@ -62,8 +60,8 @@ end
 
 local workspace = gears.object({
 	class = class,
-	-- enable_properties = true,
-	-- enable_auto_signals = true,
+	enable_properties = true,
+	enable_auto_signals = true,
 })
 
 return workspace
