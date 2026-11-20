@@ -26,27 +26,6 @@ function class:find_tag_by_name(tag_name)
 	return nil
 end
 
--- Set names of tags (array) into workspace
--- function class:set_tags(s, new_tags_name)
--- 	new_tags_name = new_tags_name or default_tags_name
--- 	local new_tags = {}
--- 	awful.spawn("notify-send '" .. new_tags_name[1] .. "'")
--- 	if new_tags_name then
--- 		for _, name in ipairs(new_tags_name) do
--- 			local t = awful.tag.find_by_name(s, name)
--- 			if t then
--- 				table.insert(new_tags, t)
--- 			end
--- 		end
--- 	end
---
--- 	if self.tags then
--- 		self.tags = new_tags
--- 	else
--- 		rawset(self, "tags", new_tags)
--- 	end
--- end
-
 -- add tag into workspace.tags
 function class:add_tag(new_tag)
 	if self.tags then

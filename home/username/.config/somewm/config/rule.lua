@@ -126,7 +126,7 @@ ruled.client.connect_signal("request::rules", function()
 				then
 					c.maximized = false
 					c.floating = true
-					c.width = 650
+					c.width = 600
 					c.height = 650
 					awful.placement.centered(c)
 				end
@@ -179,6 +179,8 @@ ruled.client.connect_signal("request::rules", function()
 		rule_any = { class = { "^nmtui$", "^bluetui$", "^btop$" } },
 		properties = {
 			tag = "system",
+			floating = true,
+			placement = awful.placement.centered,
 		},
 		callback = function()
 			local t = awful.tag.find_by_name(awful.screen.focused(), "system")
