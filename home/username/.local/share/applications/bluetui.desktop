@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Bluetooth TUI
+GenericName=Bluetooth TUI
+Comment=Text user interface for managing Bluetooth on Linux
+Exec=/home/sandrone/.config/somewm/scripts/focusorlaunch.sh bluetui kitty --class bluetui bluetui
+Icon=bluetooth-active
+Terminal=false
+TryExec=bluetui
+Categories=System;Network;
+Keywords=Bluetooth;BT;Pair;Device;TUI

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Network Manager TUI
+GenericName=Network Manager TUI
+Comment=Text user interface for controlling NetworkManager
+Exec=/home/sandrone/.config/somewm/scripts/focusorlaunch.sh nmtui kitty --class nmtui nmtui
+Icon=preferences-system-network
+Terminal=false
+TryExec=nmtui
+Categories=System;Network;
+Keywords=Network;Manager;Wireless;Ethernet;Wifi;TUI
