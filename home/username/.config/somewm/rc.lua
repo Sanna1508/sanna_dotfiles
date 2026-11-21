@@ -13,3 +13,4 @@ require("awful.autofocus")
 
 require("config.key")
 require("config.screen")
+require("config.widgets.clientbox")
