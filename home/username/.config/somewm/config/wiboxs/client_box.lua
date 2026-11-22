@@ -3,6 +3,8 @@ local awful = require("awful")
 local gears = require("gears")
 local init_box = require("config.wiboxs.rounded_retangle_wibox")
 
+local textbox = require("config.widgets.client_text_box")
+
 local function addtimerforclientbox(s)
 	local timer = gears.timer({
 		timeout = 0.75,
@@ -17,14 +19,14 @@ local function addtimerforclientbox(s)
 	return timer
 end
 
-local textbox = wibox.widget({
-	text = "textbox",
-	widget = wibox.widget.textbox,
-})
-
 local layout = wibox.widget({
 	{
-		textbox,
+		{
+			textbox:set_client_text_box(nil),
+			left = 8,
+			right = 8,
+			widget = wibox.container.margin,
+		},
 		widget = wibox.container.place,
 	},
 	layout = wibox.layout.flex.horizontal,
@@ -32,8 +34,7 @@ local layout = wibox.widget({
 
 local function update(c)
 	local s = c.screen
-	textbox.text = c.class or "nil"
-
+	textbox:set_client_text_box(c)
 	if s.clientbox.timer.started == true then
 		s.clientbox.timer:again()
 	else

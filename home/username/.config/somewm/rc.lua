@@ -14,7 +14,7 @@ require("config.key")
 require("config.screen")
 
 -- wiboxs
-require("config.wiboxs.clientbox")
+require("config.wiboxs.client_box")
 require("config.wiboxs.dashboard")
 
 -- menus

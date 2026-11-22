@@ -92,26 +92,13 @@ client.connect_signal("request::default_mousebindings", function()
 				c:activate({ context = "mouse_click", action = "mouse_resize" })
 			end
 		end),
+
 		-- test carousel
 		awful.button({ super }, 4, function()
-			-- local carousel = awful.layout.suit.carousel
-			-- local t = awful.screen.focused().selected_tag
-			-- if t and (t.layout == carousel or t.layout == carousel.vertical) then
-			-- 	carousel.scroll_by(t, -0.1)
-			-- end
-			-- awful.layout.suit.carousel.move_column(-1)
 			awful.client.focus.bydirection("left")
-			-- awful.layout.suit.carousel.adjust_column_width(-0.05)
 		end),
 		awful.button({ super }, 5, function()
-			-- local carousel = awful.layout.suit.carousel
-			-- local t = awful.screen.focused().selected_tag
-			-- if t and (t.layout == carousel or t.layout == carousel.vertical) then
-			-- 	carousel.scroll_by(t, 0.1)
-			-- end
-			-- awful.layout.suit.carousel.move_column(-1)
 			awful.client.focus.bydirection("right")
-			-- awful.layout.suit.carousel.adjust_column_width(-0.05)
 		end),
 	})
 end)
