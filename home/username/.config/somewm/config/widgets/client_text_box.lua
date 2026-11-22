@@ -1,5 +1,4 @@
 local wibox = require("wibox")
-local awful = require("awful")
 local gears = require("gears")
 
 local class = {}
@@ -18,9 +17,12 @@ function class:set_client_text_box(c)
 
 	return wibox.widget({
 		{
-			widget = client_name_text_box,
+			client_name_text_box,
+			left = 8,
+			right = 8,
+			widget = wibox.container.margin,
 		},
-		layout = wibox.layout.flex.vertical,
+		widget = wibox.container.place,
 	})
 end
 
