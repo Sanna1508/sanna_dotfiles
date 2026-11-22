@@ -5,14 +5,11 @@ local spawn = require("awful.spawn")
 local screenshot = require("awful.screenshot")
 local naughty = require("naughty")
 
-local menu = require("config.menu")
-local wmmenu = menu.wmmenu
-local clientmenu = menu.clientmenu
-local layoutmenu = menu.layoutmenu
+local env = require("env")
 
-local terminal = "kitty"
-local launcher = "pkill -9 fuzzel || fuzzel"
-local super = "Mod4"
+local terminal = env.terminal
+local launcher = env.launcher
+local super = env.super
 
 -- apps spawn
 keyboard.append_global_keybindings({
@@ -24,23 +21,6 @@ keyboard.append_global_keybindings({
 		spawn.with_shell(launcher)
 	end, { description = "spawn a launcher", group = "basic" }),
 })
-
--- menus spawn
-keyboard.append_global_keybindings({
-	key({ super }, "apostrophe", function()
-		layoutmenu:toggle({ coords = { x = 400, y = 320 } })
-	end),
-	{ description = "toggle layoutmenu", group = "menus" },
-})
-
-client.connect_signal("request::default_keybindings", function()
-	keyboard.append_client_keybindings({
-		key({ super }, ",", function()
-			clientmenu:toggle({ coords = { x = 400, y = 320 } })
-		end),
-		{ description = "toggle clientmenu", group = "menus" },
-	})
-end)
 
 -- client behaviors
 keyboard.append_global_keybindings({

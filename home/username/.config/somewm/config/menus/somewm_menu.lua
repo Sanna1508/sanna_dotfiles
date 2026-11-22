@@ -2,24 +2,12 @@ local awful = require("awful")
 local keyboard = require("awful.keyboard")
 local key = require("awful.key")
 local spawn = require("awful.spawn")
-local spawn = require("awful.spawn")
-local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local naughty = require("naughty")
 
 local super = "Mod4"
 
-local terminal = "kitty"
-local filemanager = "yazi"
-local editor = terminal
-	.. " --class "
-	.. filemanager
-	.. "_ricing"
-	.. " "
-	.. filemanager
-	.. " "
-	.. os.getenv("HOME")
-	.. "/.config/somewm/"
+local env = require("env")
 
 local wmmenu = awful.menu({
 	items = {
@@ -29,20 +17,14 @@ local wmmenu = awful.menu({
 				hotkeys_popup.show_help(nil, awful.screen.focused())
 			end,
 		},
-		-- {
-		-- 	"test",
-		-- 	function()
-		-- 		awful.spawn("notify-send '" .. ws_a.tags[1] .. "'")
-		-- 	end,
-		-- },
 		{
 			"edit config",
 			function()
 				local t = awful.tag.find_by_name(awful.screen.focused(), "rice")
 				if t and #t:clients() < 1 then
-					spawn(editor)
+					spawn(env.rice_point)
 					naughty.notification({
-						message = editor,
+						message = env.rice_point,
 					})
 				end
 				if t and not t.selected then
@@ -52,9 +34,6 @@ local wmmenu = awful.menu({
 				if c then
 					c:raise()
 					awful.client.focus.byidx(0, c)
-					-- naughty.notification({
-					-- 	message = c.class,
-					-- })
 				end
 			end,
 		},

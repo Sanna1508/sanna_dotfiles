@@ -19,3 +19,5 @@ require("config.wiboxs.dashboard")
 
 -- menus
 require("config.menus.somewm_menu")
+require("config.menus.client_menu")
+require("config.menus.layout_menu")
