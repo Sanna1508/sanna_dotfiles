@@ -20,6 +20,7 @@ keyboard.append_global_keybindings({
 	key({ super }, "h", function()
 		spawn.with_shell(launcher)
 	end, { description = "spawn a launcher", group = "basic" }),
+	key({ super, "Shift" }, "r", awesome.restart, { description = "spawn a launcher", group = "basic" }),
 })
 
 -- client behaviors
