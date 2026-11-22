@@ -27,20 +27,10 @@ keyboard.append_global_keybindings({
 
 -- menus spawn
 keyboard.append_global_keybindings({
-	key({ super }, "Escape", function()
-		wmmenu:toggle({ coords = { x = 400, y = 320 } })
-	end),
-	{ description = "toggle wmmenu", group = "menus" },
 	key({ super }, "apostrophe", function()
 		layoutmenu:toggle({ coords = { x = 400, y = 320 } })
 	end),
 	{ description = "toggle layoutmenu", group = "menus" },
-	key({ super }, "f", function()
-		if awful.screen.focused().box then
-			awful.screen.focused().box.visible = not awful.screen.focused().box.visible
-		end
-	end),
-	{ description = "toggle box", group = "wibox" },
 })
 
 client.connect_signal("request::default_keybindings", function()

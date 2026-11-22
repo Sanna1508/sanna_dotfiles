@@ -3,12 +3,7 @@ local beautiful = require("beautiful")
 local awful = require("awful")
 local gears = require("gears")
 
-local brightness = require("config.widgets.brightness")
-local clock = require("config.widgets.clock")
-local volume = require("config.widgets.volume")
-local volume_mute_icon = require("config.icons.volume_mute")
-
-local function init_box(s, boxwidth_percent, x, boxheight_percent, y)
+return function(s, boxwidth_percent, x, boxheight_percent, y, opacity)
 	boxwidth_percent = (boxwidth_percent > 0 and boxwidth_percent <= 1 and boxwidth_percent) or 0.1
 	boxheight_percent = (boxheight_percent > 0 and boxheight_percent <= 1 and boxheight_percent) or 0.1
 	x = (x > 0 and x <= 1 and x) or 0
@@ -16,7 +11,7 @@ local function init_box(s, boxwidth_percent, x, boxheight_percent, y)
 	-- init wibox
 	local mypanel = wibox({
 		visible = false,
-		ontop = true,
+		ontop = false,
 
 		screen = s,
 		x = s.geometry.width * x,
@@ -28,31 +23,10 @@ local function init_box(s, boxwidth_percent, x, boxheight_percent, y)
 			return gears.shape.rounded_rect(cr, width, height, 14)
 		end,
 
-		opacity = 0.95,
+		opacity = opacity or 0.95,
 		bg = beautiful.bg_normal or "#222222",
 		border_width = beautiful.border_width or 2,
 		border_color = beautiful.border_color_active or "#535d6c",
 	})
 	return mypanel
 end
-
-local layout = wibox.widget({
-	{
-		widget = clock,
-	},
-	{
-		widget = brightness,
-	},
-	{
-		widget = volume,
-	},
-	{
-		widget = wibox.widget.imagebox(volume_mute_icon, true, gears.shape.rectangle),
-	},
-	layout = wibox.layout.flex.vertical,
-})
-
-awful.screen.connect_for_each_screen(function(s)
-	s.box = init_box(s, 0.18, 0.81, 0.9, 0.05)
-	s.box.widget = layout
-end)

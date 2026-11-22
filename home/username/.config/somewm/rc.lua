@@ -1,5 +1,5 @@
 require("config.debug")
-require("config.env")
+require("config.input")
 require("config.theme")
 require("config.wallpaper")
 
@@ -7,10 +7,15 @@ require("config.start")
 require("config.rule")
 require("config.noti")
 require("config.signal")
-require("config.wibox")
 
 require("awful.autofocus")
 
 require("config.key")
 require("config.screen")
-require("config.widgets.clientbox")
+
+-- wiboxs
+require("config.wiboxs.clientbox")
+require("config.wiboxs.dashboard")
+
+-- menus
+require("config.menus.somewm_menu")
