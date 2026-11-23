@@ -161,6 +161,39 @@ ruled.client.connect_signal("request::rules", function()
 		},
 	})
 
+	-- pineconeMC
+	ruled.client.append_rule({
+		id = "pineconeMC",
+		rule = { class = "^io.github.elyprismlauncher.ElyPrismLauncher$" },
+		properties = {
+			tag = "game",
+			maximized = false,
+			placement = awful.placement.centered,
+		},
+		callback = function()
+			local t = awful.tag.find_by_name(awful.screen.focused(), "game")
+			if not t.selected then
+				awful.tag.viewtoggle(t)
+			end
+		end,
+	})
+
+	-- Lutris
+	ruled.client.append_rule({
+		id = "Lutris",
+		rule = { class = "^net.lutris.Lutris$" },
+		properties = {
+			tag = "game",
+			maximized = false,
+			placement = awful.placement.centered,
+		},
+		callback = function()
+			local t = awful.tag.find_by_name(awful.screen.focused(), "game")
+			if not t.selected then
+				awful.tag.viewtoggle(t)
+			end
+		end,
+	})
 	--  showmethekey
 	ruled.client.append_rule({
 		id = "showmethekey",

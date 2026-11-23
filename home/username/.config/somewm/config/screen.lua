@@ -41,7 +41,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 			c:tags(tags)
 		end
 	else
-		awful.tag({ "browser", "social", "game", "note", "file", "rice", "system" }, s, awful.layout.layouts[1])
+		awful.tag({ "browser", "note", "game", "file", "rice", "system" }, s, awful.layout.layouts[1])
 		-- awful.layout.set(awful.layout.suit.floating, awful.tag.find_by_name(s, "browser"))
 		s.workspaces = {}
 	end
