@@ -4,7 +4,7 @@ local wibox = require("wibox")
 local gears = require("gears")
 
 screen.connect_signal("request::wallpaper", function(s)
-	beautiful.get().wallpaper = (os.getenv("HOME") .. "/.config") .. "/somewm/wallpaper.png"
+	beautiful.get().wallpaper = (os.getenv("HOME") .. "/.config") .. "/somewm/wallpaper.jpg"
 
 	if beautiful.wallpaper then
 		wallpaper({

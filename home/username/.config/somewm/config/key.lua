@@ -28,9 +28,6 @@ keyboard.append_global_keybindings({
 	key({ super }, "Tab", function()
 		awful.client.focus.byidx(1)
 	end, { description = "focus the next client", group = "basic" }),
-	key({ super }, "Space", function()
-		awful.layout.suit.carousel.cycle_column_width()
-	end, { description = "toggle next layout", group = "basic" }),
 })
 
 -- layout behaviors

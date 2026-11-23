@@ -8,7 +8,7 @@ tag.connect_signal("request::default_layouts", function()
 	})
 end)
 
-awful.layout.suit.carousel.width_presets = { 0.5, 0.75, 1.0 }
+awful.layout.suit.carousel.width_presets = { 0.34, 0.5, 0.66, 1.0 }
 awful.layout.suit.carousel.make_gesture_binding()
 
 screen.connect_signal("request::desktop_decoration", function(s)
